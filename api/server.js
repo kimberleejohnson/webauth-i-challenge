@@ -3,7 +3,9 @@ const express = require('express');
 const helmet = require('helmet'); 
 const cors = require('cors'); 
 
-// PLACEHOLDER for defining routers
+// Defining routers
+const authRouter = require('../auth/auth-router.js'); 
+
 
 // Defining my server 
 const server = express(); 
@@ -18,6 +20,7 @@ server.get('/', (req, res) => {
     res.send('Server is working!')
 });
 
-// PLACEHOLDER for telling server to use routers 
+// Telling server to use routers 
+server.use('/api/auth', authRouter); 
 
 module.exports = server; 
