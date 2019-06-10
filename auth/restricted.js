@@ -13,13 +13,13 @@ module.exports = function restricted(req, res, next) {
             if (user && bcrypt.compareSync(password, user.password)) {
                 next(); 
             } else {
-                res.status(401).json({ message: 'Teehee, whoops! Invalid credentials'})
+                res.status(401).json({ message: 'You shall not pass! Invalid credentials'})
             }
         })
         .catch(error => {
             res.status(500).json(error); 
         });
     } else {
-        res.status(400).json({ message: 'Please provide credentials'})
+        res.status(400).json({ message: 'You shall not pass! Please provide credentials'})
     }
 };
