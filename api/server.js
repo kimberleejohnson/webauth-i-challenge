@@ -18,13 +18,14 @@ const server = express();
 const sessionConfig = {
     name: 'pineapple', // Setting an id for security that's not default for security
     secret: 'keep it secret, keep it safe!', // use to encrypt and decrypt; verify cookie valid
+    resave: false, 
+    saveUninitialized: false, // GDPR laws against saving cookies automatically
     cookie: {
         maxAge: 1000 * 30,
         secure: false, // true in production 
         httpOnly: true,
     },
-    resave: false, 
-    saveUninitialized: false, // GDPR laws against saving cookies automatically
+    tomatically
 };
 
 // Telling my server to use my dependencies/middleware

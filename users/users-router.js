@@ -8,7 +8,7 @@ const restricted = require('../auth/restricted');
 router.get('/', restricted, (req, res) => {
     Users.find()
     .then(users => {
-        res.json(users); 
+        res.json({users, username: req.session.username}); 
     })
     .catch(err => res.send(err));
 });
