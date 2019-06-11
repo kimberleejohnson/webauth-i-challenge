@@ -44,4 +44,12 @@ router.post('/login', (req, res) => {
     });
 });
 
+// Route to delete the session
+router.delete('/', (req, res) => {
+    if(req.session) {
+        req.session.destroy();
+        res.status(200).json({message: "Session deleted, goodbye!"})
+    }
+})
+
 module.exports = router; 
