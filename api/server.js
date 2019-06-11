@@ -3,6 +3,9 @@ const express = require('express');
 const helmet = require('helmet'); 
 const cors = require('cors'); 
 
+// After npm install, I am defining dependency/global middleware
+const session = require('express-session');
+
 // Defining routers
 const authRouter = require('../auth/auth-router.js'); 
 const usersRouter = require('../users/users-router.js'); 
@@ -11,10 +14,26 @@ const usersRouter = require('../users/users-router.js');
 // Defining my server 
 const server = express(); 
 
-// Telling my server to use my dependencies
+// Creatng my sessionConfig 
+const sessionConfig = {
+    name: 'pineapple', // Setting an id for security that's not default for security
+    secret: 'keep it secret, keep it safe!', // use to encrypt and decrypt; verify cookie valid
+    cookie: {
+        maxAge: 1000 * 30,
+        secure: false, // true in production 
+        httpOnly: true,
+    },
+    resave: false, 
+    saveUninitialized: false
+};
+
+// Telling my server to use my dependencies/middleware
 server.use(helmet()); 
 server.use(express.json()); 
 server.use(cors()); 
+
+// Using express-session, passing in a configuration object
+server.use(session(sessionConfig)); 
 
 // Test get route to make sure server is running
 server.get('/', (req, res) => {
