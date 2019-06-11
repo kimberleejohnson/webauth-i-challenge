@@ -24,7 +24,7 @@ const sessionConfig = {
         httpOnly: true,
     },
     resave: false, 
-    saveUninitialized: false
+    saveUninitialized: false, // GDPR laws against saving cookies automatically
 };
 
 // Telling my server to use my dependencies/middleware
