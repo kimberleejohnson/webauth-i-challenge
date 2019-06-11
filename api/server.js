@@ -6,6 +6,9 @@ const cors = require('cors');
 // After npm install, I am defining dependency/global middleware
 const session = require('express-session');
 
+// Requiring storage library 
+const KnexSessionStore = require('connect-session-knex')(session); 
+
 // Defining routers
 const authRouter = require('../auth/auth-router.js'); 
 const usersRouter = require('../users/users-router.js'); 
@@ -25,7 +28,14 @@ const sessionConfig = {
         secure: false, // true in production 
         httpOnly: true,
     },
-    tomatically
+    // Creating a new object for storing the user session 
+    store: new KnexSessionStore({
+        knex: require('../data/dbConfig.js'), 
+        tablename: 'sessions', 
+        sidfieldname: 'sid', 
+        createtable: true, 
+        clearInterval: 1000 * 60 * 30 
+    })
 };
 
 // Telling my server to use my dependencies/middleware
